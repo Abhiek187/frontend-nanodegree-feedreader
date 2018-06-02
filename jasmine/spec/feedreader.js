@@ -53,12 +53,8 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
-        var body, menuIcon;
-
-        beforeEach(function() {
-            body = document.body;
-            menuIcon = document.querySelector('.menu-icon-link');
-        });
+        var body = document.body;
+        var menuIcon = document.querySelector('.menu-icon-link');;
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -82,13 +78,27 @@ $(function() {
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function() {
+        var feed;
 
+        beforeEach(function(done) {
+            feed = document.querySelector('.feed');
+            loadFeed(0, function() {
+                done();
+            });
+        });
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        it('have at least one entry', function(done) {
+            expect(feed.children.length).not.toBe(0);
+            expect(feed.children[0].className).toBe('entry-link');
+            done();
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
