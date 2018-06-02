@@ -124,7 +124,7 @@ $(function() {
         });
 
         it('changes content', done => {
-            expect(oldTitle).not.toEqual(newTitle);
+            expect(oldTitle).not.toBe(newTitle);
             done();
         });
     });
