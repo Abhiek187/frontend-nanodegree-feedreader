@@ -49,7 +49,7 @@ $(function() {
 
 
     /* This test suite is all about the menu's visibility. */
-    describe('The menu', () => {
+    describe('The Menu', () => {
         const body = document.body;
         const menuIcon = document.querySelector('.menu-icon-link');
         /* This test ensures the menu element is hidden by default.
