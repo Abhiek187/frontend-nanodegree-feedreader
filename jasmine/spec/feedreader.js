@@ -57,7 +57,8 @@ $(function() {
          * how we're performing the hiding/showing of the menu element.
          */
         it('is hidden by default', () => {
-            expect(body.className).toBe('menu-hidden');
+            // Other classes can be added to body, as long as menu-hidden is there.
+            expect(body.className).toContain('menu-hidden');
         });
 
         /* This test ensures the menu changes visibility when the menu
@@ -66,10 +67,10 @@ $(function() {
          * clicked again.
          */
         it('changes visibility when clicked', () => {
-            menuIcon.click();
-            expect(body.className).toBe('');
-            menuIcon.click();
-            expect(body.className).toBe('menu-hidden');
+            menuIcon.click(); // hide menu
+            expect(body.className).not.toContain('menu-hidden');
+            menuIcon.click(); // reopen menu
+            expect(body.className).toContain('menu-hidden');
         });
     });
 
@@ -81,17 +82,17 @@ $(function() {
          * asynchronous so this test will require the use of Jasmine's
          * beforeEach and asynchronous done() function.
          */
-        const feed = document.querySelector('.feed');
+        let entries;
 
         beforeEach(done => {
             loadFeed(0, () => {
+                entries = document.querySelector('.feed').querySelectorAll('.entry');
                 done();
             });
         });
 
         it('have at least one entry', done => {
-            expect(feed.children.length).not.toBe(0);
-            expect(feed.children[0].className).toBe('entry-link');
+            expect(entries.length).toBeGreaterThan(0);
             done();
         });
     });
@@ -102,26 +103,26 @@ $(function() {
          * function that the content actually changes. Remember, loadFeed()
          * is asynchronous.
          */
-        let oldTitle, newTitle;
+        let oldFeed, newFeed;
 
         beforeEach(done => {
             loadFeed(0, () => {
                 // load Udacity Blog
-                oldTitle = document.querySelector('.header-title').textContent;
+                oldFeed = document.querySelector('.feed').innerHTML;
                 done();
             });
         });
-
+        // Both feeds must load before the test is executed.
         beforeEach(done => {
             loadFeed(1, () => {
                 // load CSS Tricks
-                newTitle = document.querySelector('.header-title').textContent;
+                newFeed = document.querySelector('.feed').innerHTML;
                 done();
             });
         });
 
         it('changes content', done => {
-            expect(oldTitle).not.toBe(newTitle);
+            expect(oldFeed).not.toBe(newFeed);
             done();
         });
     });
