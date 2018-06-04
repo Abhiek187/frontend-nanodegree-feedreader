@@ -50,7 +50,7 @@ $(function() {
 
     /* This test suite is all about the menu's visibility. */
     describe('The Menu', () => {
-        const body = document.body;
+        const body = $('body');
         const menuIcon = document.querySelector('.menu-icon-link');
         /* This test ensures the menu element is hidden by default.
          * You'll have to analyze the HTML and the CSS to determine
@@ -58,7 +58,7 @@ $(function() {
          */
         it('is hidden by default', () => {
             // Other classes can be added to body, as long as menu-hidden is there.
-            expect(body.className).toContain('menu-hidden');
+            expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
         /* This test ensures the menu changes visibility when the menu
@@ -68,9 +68,9 @@ $(function() {
          */
         it('changes visibility when clicked', () => {
             menuIcon.click(); // hide menu
-            expect(body.className).not.toContain('menu-hidden');
+            expect(body.hasClass('menu-hidden')).not.toBe(true);
             menuIcon.click(); // reopen menu
-            expect(body.className).toContain('menu-hidden');
+            expect(body.hasClass('menu-hidden')).toBe(true);
         });
     });
 
